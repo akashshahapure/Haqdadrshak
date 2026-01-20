@@ -19,7 +19,7 @@ st.set_page_config(
 
 # Showing user manual in sidebar
 try:
-    display_pdf_in_sidebar("Steps to generate Resource Allocation Report.pdf")
+    display_pdf_in_sidebar("Steps_to_generate_Resource_Allocation_Report.pdf")
 except FileNotFoundError:
     st.sidebar.error("PDF file not found.")
 
