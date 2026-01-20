@@ -1,5 +1,6 @@
 import streamlit as st, pandas as pd, numpy as np, xlsxwriter, io, time
 from datetime import datetime as dt
+import datetime
 from tools.read_file import csvORexcel
 from tools.read_file import readEmpDB
 from tools.transform_data import dataXform
@@ -75,7 +76,8 @@ if submitted:
         interim_report, final_report = dataXform(del_hie_rep, exitEmpDB=exit_emp_DB, active_emp_DB=active_emp_DB)
         open_projects_df = open_projects(final_report, project_master)
         Allocated, Unallocated = check_pv(activeProjectMaster, pivot2 = interim_report, empDB = active_emp_DB)
-        user_allocation_history['End Date'] = user_allocation_history['End Date'].apply(lambda x: pd.to_datetime(x).strftime('%d-%m-%Y') if x[0].isnumeric() else x) # Converting date format to DD-MM-YYYY.
+        user_allocation_history['End Date'] = user_allocation_history['End Date'].apply(lambda x: x.strftime('%d-%m-%Y') if isinstance(x, (datetime.date, datetime.datetime)) else
+                                                                                        pd.to_datetime(x).strftime('%d-%m-%Y') if x[0].isnumeric() else x) # Converting date format to DD-MM-YYYY.
 
         # Saving data in virtual memory buffer.
         buffer = io.BytesIO()
