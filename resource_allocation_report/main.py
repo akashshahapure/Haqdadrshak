@@ -6,6 +6,7 @@ from tools.read_file import readEmpDB
 from tools.transform_data import dataXform
 from tools.check_pv import check_pv
 from tools.openProjects import open_projects
+from tools.pdfViewer import display_pdf_in_sidebar
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -15,6 +16,12 @@ st.set_page_config(
     page_icon="https://framerusercontent.com/images/gVBdWe1mOwPpV6Z7x9I2kLuIWs.jpg",
     layout="centered",
 )
+
+# Showing user manual in sidebar
+try:
+    display_pdf_in_sidebar("Steps to generate Resource Allocation Report.pdf")
+except FileNotFoundError:
+    st.sidebar.error("PDF file not found.")
 
 # Setting up the title of the app
 st.markdown("<h1 style='text-align: center;'>Resource Allocation Report Generator</h1>", unsafe_allow_html=True)
